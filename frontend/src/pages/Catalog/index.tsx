@@ -2,23 +2,37 @@ import ProductCard from 'components/ProductCard';
 import { Link } from 'react-router-dom';
 import { Product } from 'types/Product';
 import './style.css';
+import { useEffect, useState } from 'react';
+import { SpringPage } from 'types/vendor/spring';
+import axios from 'axios';
+import { AxiosParams } from 'types/vendor/axios';
+import { BASE_URL } from 'utils/requests';
 
 const Catalog = () => {
 
-  const product : Product = {
-    "id": 3,
-    "name": "Macbook Pro 10",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    "price": 1250.0,
-    "imgUrl": "https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/3-big.jpg",
-    "date": "2020-07-14T10:00:00Z",
-    "categories": [
-        {
-            "id": 3,
-            "name": "Computadores"
-        }
-    ]
-}
+  //Hook para paginação do spring
+  const [page, setPage] = useState<SpringPage<Product>>();
+
+
+  useEffect(()=>{
+
+    // constante com os paramentros pa requisição
+    const params : AxiosParams = {
+      method: 'GET',
+      url: `${BASE_URL}/products`,
+      params: {
+        page: 0,
+        size: 12
+      }
+    }
+
+    // como vou passar paramentros acima, naõ precisa chamar o metodo get
+    axios(params)
+      .then(resultado => {
+        setPage(resultado.data);
+      })
+
+  },[]);
 
   return (
     <div className="container my-4 catalog-container">
@@ -28,43 +42,17 @@ const Catalog = () => {
       </div>
 
       <div className="row">
-        
-        <div className="col-sm-6 col-lg-4 col-xl-3">
-          <Link to="/products/1">
-            <ProductCard produto={product}/>
-          </Link>
-        </div>
-        
-        <div className="col-sm-6 col-lg-4 col-xl-3">
-        <Link to="/products/1">
-            <ProductCard produto={product}/>
-          </Link>
-        </div>
-        
-        <div className="col-sm-6 col-lg-4 col-xl-3">
-        <Link to="/products/1">
-            <ProductCard produto={product}/>
-          </Link>
-        </div>
-        
-        <div className="col-sm-6 col-lg-4 col-xl-3">
-        <Link to="/products/1">
-            <ProductCard produto={product}/>
-          </Link>
-        </div>
-        
-        <div className="col-sm-6 col-lg-4 col-xl-3">
-        <Link to="/products/1">
-            <ProductCard produto={product}/>
-          </Link>
-        </div>
-       
-        <div className="col-sm-6 col-lg-4 col-xl-3">
-        <Link to="/products/1">
-            <ProductCard produto={product}/>
-          </Link>
-        </div>
+        {page?.content.map((produto) => {
+            return (
+              <div className="col-sm-6 col-lg-4 col-xl-3" key={produto.id}>
+                <Link to="/products/1">
+                  <ProductCard produto={produto}/>
+                </Link>
+              </div>
+            );
+        })}     
       </div>
+
     </div>
   );
 };

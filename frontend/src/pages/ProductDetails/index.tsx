@@ -3,8 +3,8 @@ import axios from 'axios';
 import ProductPrice from 'components/ProductPrice';
 import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Product } from 'types/product';
-import { BASE_URL } from 'util/requests';
+import { Product } from 'types/Product';
+import { BASE_URL } from 'utils/requests';
 import ProductInfoLoader from './ProductInfoLoader';
 import ProductDetailsLoader from './ProductDetailsLoader';
 
@@ -52,7 +52,7 @@ const ProductDetails = () => {
                 </div>
                 <div className="name-price-container">
                   <h1>{product?.name}</h1>
-                  {product && <ProductPrice price={product?.price} />}
+                  {product && <ProductPrice valor={product?.price} />}
                 </div>
               </>
             )}
