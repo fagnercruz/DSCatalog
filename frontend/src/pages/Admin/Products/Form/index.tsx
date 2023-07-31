@@ -5,8 +5,8 @@ import CurrencyInput from 'react-currency-input-field';
 import { useForm, Controller } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
 import Select from 'react-select';
-import { Category } from 'types/category';
-import { Product } from 'types/product';
+import { Category } from 'types/Category';
+import { Product } from 'types/Product';
 import { requestBackend } from 'util/requests';
 import { toast } from 'react-toastify';
 

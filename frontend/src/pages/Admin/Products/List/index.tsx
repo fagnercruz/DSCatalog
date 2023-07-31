@@ -5,7 +5,7 @@ import ProductCrudCard from 'pages/Admin/Products/ProductCrudCard';
 import { useCallback } from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Product } from 'types/product';
+import { Product } from 'types/Product';
 import { SpringPage } from 'types/vendor/spring';
 import { requestBackend } from 'util/requests';
 

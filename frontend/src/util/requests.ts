@@ -64,7 +64,10 @@ axios.interceptors.response.use(
     return response;
   },
   function (error) {
-    if (error.response.status === 401) {
+    if(error.response === undefined){
+      console.log("Backend não respondeu a tempo ou está Offline");
+      history.push('/');
+    } else if (error.response.status === 401) {
       history.push('/admin/auth');
     }
     return Promise.reject(error);

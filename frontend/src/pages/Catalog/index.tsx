@@ -1,5 +1,5 @@
 import ProductCard from 'components/ProductCard';
-import { Product } from 'types/product';
+import { Product } from 'types/Product';
 import { Link } from 'react-router-dom';
 import Pagination from 'components/Pagination';
 import { useState, useEffect } from 'react';
