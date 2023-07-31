@@ -3,8 +3,8 @@ import axios from 'axios';
 import ProductPrice from 'components/ProductPrice';
 import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Product } from 'types/Product';
-import { BASE_URL } from 'utils/requests';
+import { Product } from 'types/product';
+import { BASE_URL } from 'util/requests';
 import ProductInfoLoader from './ProductInfoLoader';
 import ProductDetailsLoader from './ProductDetailsLoader';
 
@@ -52,12 +52,11 @@ const ProductDetails = () => {
                 </div>
                 <div className="name-price-container">
                   <h1>{product?.name}</h1>
-                  {product && <ProductPrice valor={product?.price} />}
+                  {product && <ProductPrice price={product?.price} />}
                 </div>
               </>
             )}
           </div>
-
           <div className="col-xl-6">
             {isLoading ? (
               <ProductDetailsLoader />
@@ -68,7 +67,6 @@ const ProductDetails = () => {
               </div>
             )}
           </div>
-          
         </div>
       </div>
     </div>

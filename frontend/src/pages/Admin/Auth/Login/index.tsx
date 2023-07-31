@@ -1,15 +1,15 @@
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import ButtonIcon from 'components/ButtonIcon';
 import { useForm } from 'react-hook-form';
-import { requestBackendLogin } from 'utils/requests';
+import { requestBackendLogin } from 'util/requests';
 import { useContext, useState } from 'react';
 import { AuthContext } from 'AuthContext';
-import { saveAuthData } from 'utils/storage';
-import { getTokenData } from 'utils/auth';
+import { saveAuthData } from 'util/storage';
+import { getTokenData } from 'util/auth';
 
 import './styles.css';
 
-type FormData = {
+type CredentialsDTO = {
   username: string;
   password: string;
 };
@@ -21,16 +21,18 @@ type LocationState = {
 const Login = () => {
 
   const location = useLocation<LocationState>();
+
   const { from } = location.state || { from: { pathname: '/admin' } };
+
   const { setAuthContextData } = useContext(AuthContext);
+
   const [hasError, setHasError] = useState(false);
-  const { register, handleSubmit, formState: {errors} } = useForm<FormData>(); // react-hook-form
+
+  const { register, handleSubmit, formState: {errors} } = useForm<CredentialsDTO>();
 
   const history = useHistory();
 
-  // função onSubmit que é passado para dentro do handleSubmit, 
-  // que por sua vez é o set do register no hook do form que é chamado dentro do evento onSubmit do formulário
-  const onSubmit = (formData: FormData) => {
+  const onSubmit = (formData: CredentialsDTO) => {
     requestBackendLogin(formData)
       .then((response) => {
         saveAuthData(response.data);
